@@ -1,0 +1,1810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="MedPredict AI — Free health risk insights for Diabetes and Heart Disease with connected care options for telemedicine, report analysis, and mental wellness." />
+  <title>MedPredict AI — Digital Health Companion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =====================================================
+       DESIGN TOKENS
+    ===================================================== */
+    :root {
+      --blue:        #1a56db;
+      --blue-dark:   #0d2f7a;
+      --blue-light:  #dbeafe;
+      --teal:        #0891b2;
+      --teal-light:  #cffafe;
+      --bg:          #ffffff;
+      --bg-soft:     #f0f6ff;
+      --bg-dark:     #0a1e4a;
+      --border:      #e2e8f0;
+      --text-1:      #0f172a;
+      --text-2:      #475569;
+      --text-3:      #94a3b8;
+      --white:       #ffffff;
+      --shadow-sm:   0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.05);
+      --shadow-md:   0 4px 16px rgba(0,0,0,.10);
+      --shadow-lg:   0 10px 40px rgba(0,0,0,.12);
+      --radius-sm:   8px;
+      --radius-md:   14px;
+      --radius-lg:   22px;
+      --radius-xl:   32px;
+      --ease:        0.22s cubic-bezier(.4,0,.2,1);
+      --font:        'Inter', system-ui, sans-serif;
+      --display:     'Outfit', system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body  { font-family: var(--font); background: var(--bg); color: var(--text-1); overflow-x: hidden; line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    button { font-family: var(--font); }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg-soft); }
+    ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 3px; }
+
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+
+    /* =====================================================
+       NAVBAR
+    ===================================================== */
+    #navbar {
+      position: sticky; top: 0; z-index: 200;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 72px;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo-icon {
+      width: 40px; height: 40px;
+      background: var(--blue); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logo-icon svg { width: 22px; height: 22px; fill: var(--white); }
+    .logo-name {
+      font-family: var(--display); font-size: 1.3rem; font-weight: 800;
+      color: var(--blue-dark);
+    }
+    .logo-tag { font-size: .65rem; color: var(--text-3); font-weight: 500; margin-top: -2px; letter-spacing: .04em; text-transform: uppercase; }
+
+    .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
+    .nav-links a {
+      padding: 8px 16px; border-radius: 8px;
+      font-size: .9rem; font-weight: 500; color: var(--text-2);
+      transition: var(--ease);
+    }
+    .nav-links a:hover { color: var(--blue); background: var(--bg-soft); }
+    .nav-cta {
+      background: var(--blue) !important; color: var(--white) !important;
+      font-weight: 600 !important; border-radius: 100px !important;
+      padding: 9px 22px !important;
+      box-shadow: 0 3px 14px rgba(26,86,219,.35);
+    }
+    .nav-cta:hover { background: var(--blue-dark) !important; transform: translateY(-1px); }
+
+    /* =====================================================
+       HERO — Split layout (text left, image right)
+    ===================================================== */
+    #hero {
+      background: linear-gradient(135deg, #f0f6ff 0%, #e8f2ff 60%, #dbeafe 100%);
+      overflow: hidden;
+      position: relative;
+    }
+    .hero-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center; min-height: 560px;
+      gap: 0;
+    }
+    .hero-text { padding: 70px 40px 70px 0; }
+    .hero-label {
+      display: inline-block;
+      background: var(--blue-light); color: var(--blue);
+      font-size: .75rem; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      padding: 5px 14px; border-radius: 100px;
+      margin-bottom: 20px;
+    }
+    .hero-text h1 {
+      font-family: var(--display);
+      font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+      font-weight: 900; line-height: 1.1;
+      color: var(--text-1); margin-bottom: 18px;
+    }
+    .hero-text h1 span { color: var(--blue); }
+    .hero-text p {
+      font-size: 1.05rem; color: var(--text-2);
+      max-width: 440px; line-height: 1.75; margin-bottom: 32px;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 40px; }
+    .btn-primary {
+      padding: 14px 30px; border-radius: 100px;
+      background: var(--blue); color: var(--white);
+      font-weight: 700; font-size: .97rem; border: none; cursor: pointer;
+      box-shadow: 0 4px 18px rgba(26,86,219,.35);
+      transition: var(--ease);
+    }
+    .btn-primary:hover { background: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(26,86,219,.45); }
+    .btn-outline {
+      padding: 13px 26px; border-radius: 100px;
+      background: transparent; border: 2px solid var(--blue);
+      color: var(--blue); font-weight: 600; font-size: .97rem;
+      cursor: pointer; transition: var(--ease);
+    }
+    .btn-outline:hover { background: var(--blue); color: var(--white); }
+
+    /* Trusted badge */
+    .hero-trust {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .trust-avatars { display: flex; }
+    .trust-avatars img {
+      width: 34px; height: 34px; border-radius: 50%;
+      border: 2px solid var(--white); margin-left: -8px; object-fit: cover;
+    }
+    .trust-avatars img:first-child { margin-left: 0; }
+    .trust-text strong { display: block; font-size: .88rem; font-weight: 700; color: var(--text-1); }
+    .trust-text span { font-size: .77rem; color: var(--text-3); }
+
+    /* Hero image */
+    .hero-image {
+      position: relative; height: 560px; overflow: hidden;
+    }
+    .hero-image img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .hero-image::before {
+      content: '';
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(to right, #f0f6ff 0%, transparent 30%);
+    }
+    .hero-stat-card {
+      position: absolute; z-index: 2;
+      background: var(--white); border-radius: 14px;
+      padding: 14px 20px; box-shadow: var(--shadow-lg);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .hero-stat-card.top { top: 30px; right: 30px; }
+    .hero-stat-card.bottom { bottom: 80px; right: 30px; }
+    .stat-icon {
+      width: 42px; height: 42px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .stat-icon.blue { background: var(--blue-light); }
+    .stat-icon.teal { background: var(--teal-light); }
+    .stat-icon svg { width: 20px; height: 20px; }
+    .stat-icon.blue svg { stroke: var(--blue); }
+    .stat-icon.teal svg { stroke: var(--teal); }
+    .stat-val { font-family: var(--display); font-size: 1.25rem; font-weight: 800; color: var(--text-1); line-height: 1; }
+    .stat-lbl { font-size: .73rem; color: var(--text-3); margin-top: 2px; }
+
+    /* =====================================================
+       STATS BAR  (dark like Medvill)
+    ===================================================== */
+    #stats-bar {
+      background: var(--bg-dark);
+      padding: 40px 0;
+    }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .stats-item {
+      text-align: center;
+      padding: 0 20px;
+      border-right: 1px solid rgba(255,255,255,.1);
+    }
+    .stats-item:last-child { border-right: none; }
+    .stats-icon { margin: 0 auto 10px; }
+    .stats-icon svg { width: 38px; height: 38px; stroke: rgba(255,255,255,.6); fill: none; margin: 0 auto; display: block; }
+    .stats-num {
+      font-family: var(--display); font-size: 2.1rem; font-weight: 900;
+      color: var(--white); line-height: 1;
+    }
+    .stats-num sup { font-size: 1.1rem; vertical-align: super; }
+    .stats-label { font-size: .82rem; color: rgba(255,255,255,.55); margin-top: 5px; letter-spacing: .03em; }
+
+    /* =====================================================
+       ABOUT / WHY SECTION
+    ===================================================== */
+    #about { padding: 90px 0; }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center; gap: 60px;
+    }
+    .about-img-wrap { position: relative; }
+    .about-img-main {
+      border-radius: var(--radius-xl); overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      aspect-ratio: 4/3;
+    }
+    .about-img-main img { width: 100%; height: 100%; object-fit: cover; }
+    .about-img-badge {
+      position: absolute; bottom: -20px; right: -20px;
+      background: var(--blue); color: var(--white);
+      border-radius: var(--radius-lg); padding: 18px 24px;
+      box-shadow: var(--shadow-lg); text-align: center;
+    }
+    .about-img-badge .b-num {
+      font-family: var(--display); font-size: 2rem; font-weight: 900; display: block;
+    }
+    .about-img-badge .b-txt { font-size: .78rem; opacity: .85; }
+    .about-text .section-tag {
+      font-size: .75rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--blue);
+      margin-bottom: 12px; display: block;
+    }
+    .about-text h2 {
+      font-family: var(--display); font-size: clamp(1.7rem,3vw,2.4rem);
+      font-weight: 800; line-height: 1.2; margin-bottom: 18px; color: var(--text-1);
+    }
+    .about-text p { font-size: .97rem; color: var(--text-2); line-height: 1.8; margin-bottom: 22px; }
+    .about-points { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+    .about-points li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: .93rem; color: var(--text-2);
+    }
+    .check-icon {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--blue-light);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .check-icon svg { width: 12px; height: 12px; stroke: var(--blue); fill: none; }
+
+    /* =====================================================
+       SERVICES
+    ===================================================== */
+    #services { padding: 90px 0; background: var(--white); }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    }
+    .service-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 30px 26px;
+      box-shadow: var(--shadow-sm); transition: var(--ease);
+    }
+    .service-card:hover { border-color: var(--blue); box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+    .service-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+    .service-icon svg { width: 25px; height: 25px; fill: none; stroke-width: 2; }
+    .service-icon.video { background: var(--blue-light); }
+    .service-icon.report { background: var(--teal-light); }
+    .service-icon.mind { background: #fce7f3; }
+    .service-icon.video svg { stroke: var(--blue); }
+    .service-icon.report svg { stroke: var(--teal); }
+    .service-icon.mind svg { stroke: #be185d; }
+    .service-card h3 {
+      font-family: var(--display); font-size: 1.12rem;
+      font-weight: 700; margin-bottom: 10px; color: var(--text-1);
+    }
+    .service-card p { font-size: .9rem; color: var(--text-2); line-height: 1.7; margin-bottom: 16px; }
+    .service-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .service-list li {
+      display: flex; align-items: flex-start; gap: 9px;
+      font-size: .84rem; color: var(--text-2); line-height: 1.5;
+    }
+    .service-list li::before {
+      content: ''; width: 7px; height: 7px; border-radius: 50%;
+      background: var(--blue); flex-shrink: 0; margin-top: 7px;
+    }
+
+    /* =====================================================
+       HOW IT WORKS
+    ===================================================== */
+    #how-it-works { background: var(--bg-soft); padding: 90px 0; }
+    .section-header { text-align: center; margin-bottom: 56px; }
+    .section-tag-center {
+      font-size: .75rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--blue);
+      margin-bottom: 12px; display: block;
+    }
+    .section-title {
+      font-family: var(--display); font-size: clamp(1.8rem,3.5vw,2.6rem);
+      font-weight: 800; color: var(--text-1); line-height: 1.2; margin-bottom: 14px;
+    }
+    .section-sub { font-size: .98rem; color: var(--text-2); max-width: 520px; margin: 0 auto; }
+    .steps-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
+    }
+    .step-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 36px 28px;
+      position: relative; transition: var(--ease);
+      box-shadow: var(--shadow-sm);
+    }
+    .step-card:hover { border-color: var(--blue); box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+    .step-num-wrap {
+      width: 54px; height: 54px; border-radius: 14px;
+      background: var(--bg-soft); border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px; transition: var(--ease);
+    }
+    .step-card:hover .step-num-wrap { background: var(--blue); border-color: var(--blue); }
+    .step-num-wrap svg { width: 24px; height: 24px; stroke: var(--blue); fill: none; transition: var(--ease); }
+    .step-card:hover .step-num-wrap svg { stroke: var(--white); }
+    .step-num-text {
+      position: absolute; top: 28px; right: 28px;
+      font-family: var(--display); font-size: 3rem; font-weight: 900;
+      color: var(--bg-soft); line-height: 1;
+    }
+    .step-title { font-family: var(--display); font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; color: var(--text-1); }
+    .step-desc { font-size: .9rem; color: var(--text-2); line-height: 1.7; }
+
+    /* =====================================================
+       PREDICTOR SECTION
+    ===================================================== */
+    #predictor { padding: 90px 0; }
+
+    /* Tabs */
+    .tab-wrap { display: flex; justify-content: center; margin-bottom: 36px; }
+    .tabs {
+      display: inline-flex; gap: 4px;
+      background: var(--bg-soft); border: 1px solid var(--border);
+      border-radius: 100px; padding: 5px;
+    }
+    .tab-btn {
+      padding: 11px 28px; border: none; border-radius: 100px;
+      cursor: pointer; font-size: .92rem; font-weight: 600;
+      color: var(--text-2); background: transparent;
+      transition: var(--ease); display: flex; align-items: center; gap: 9px;
+    }
+    .tab-btn.active { background: var(--white); color: var(--text-1); box-shadow: var(--shadow-sm); }
+    .tab-btn.active.d-tab { color: var(--blue); }
+    .tab-btn.active.h-tab { color: #be123c; }
+    .tab-icon-svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .tab-btn.active.d-tab .tab-icon-svg { stroke: var(--blue); fill: none; }
+    .tab-btn.active.h-tab .tab-icon-svg { stroke: #be123c; fill: none; }
+    .tab-btn:not(.active) .tab-icon-svg { stroke: var(--text-3); fill: none; }
+
+    /* Form card */
+    .predictor-wrap { max-width: 700px; margin: 0 auto; }
+    .panel { display: none; }
+    .panel.active { display: block; }
+    .form-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-xl); padding: 40px;
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Card header */
+    .card-hd {
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 24px; padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .card-icon-box {
+      width: 54px; height: 54px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .card-icon-box.d-icon { background: #dbeafe; }
+    .card-icon-box.h-icon { background: #ffe4e6; }
+    .card-icon-box svg { width: 26px; height: 26px; fill: none; }
+    .card-icon-box.d-icon svg { stroke: var(--blue); }
+    .card-icon-box.h-icon svg { stroke: #be123c; }
+    .card-hd-info .card-title { font-family: var(--display); font-size: 1.3rem; font-weight: 700; color: var(--text-1); }
+    .card-hd-info .card-sub { font-size: .8rem; color: var(--text-3); margin-top: 3px; }
+
+    /* Sample buttons */
+    .sample-row {
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+    .sample-label { font-size: .78rem; color: var(--text-3); }
+    .sample-btn {
+      padding: 6px 14px; border-radius: 100px;
+      border: 1px solid var(--border); background: var(--bg-soft);
+      color: var(--text-2); font-size: .8rem; font-weight: 600; cursor: pointer;
+      transition: var(--ease);
+    }
+    .sample-btn:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
+
+    /* Form fields */
+    .form-section {
+      font-size: .72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .1em; color: var(--text-3);
+      margin: 22px 0 14px; padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { margin-bottom: 16px; }
+
+    label {
+      display: flex; align-items: center; gap: 6px;
+      font-size: .8rem; font-weight: 600; color: var(--text-1);
+      margin-bottom: 7px;
+    }
+    .lbl-unit { font-size: .73rem; color: var(--text-3); font-weight: 400; }
+
+    /* Tooltip */
+    .tip {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 17px; height: 17px; border-radius: 50%;
+      background: var(--bg-soft); border: 1px solid var(--border);
+      font-size: .66rem; color: var(--text-3); cursor: help;
+      position: relative; flex-shrink: 0;
+      font-family: var(--font); font-weight: 600;
+      transition: var(--ease);
+    }
+    .tip:hover { background: var(--blue); color: var(--white); border-color: var(--blue); }
+    .tip::after {
+      content: attr(data-tip);
+      position: absolute; bottom: calc(100% + 8px); left: 50%;
+      transform: translateX(-50%);
+      background: var(--text-1); color: var(--white);
+      font-size: .76rem; font-weight: 400;
+      text-transform: none; letter-spacing: 0;
+      padding: 8px 12px; border-radius: var(--radius-sm);
+      width: 220px; line-height: 1.5;
+      opacity: 0; pointer-events: none;
+      transition: opacity .18s ease; z-index: 300;
+    }
+    .tip:hover::after { opacity: 1; }
+
+    input[type="number"], select {
+      width: 100%; padding: 11px 14px;
+      background: var(--bg-soft); border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm); color: var(--text-1);
+      font-family: var(--font); font-size: .95rem; outline: none;
+      transition: var(--ease);
+    }
+    input[type="number"]:focus, select:focus {
+      border-color: var(--blue); background: var(--white);
+      box-shadow: 0 0 0 3px rgba(26,86,219,.1);
+    }
+    input[type="number"]:hover, select:hover { border-color: #94a3b8; }
+    select option { background: var(--white); }
+
+    /* Range slider */
+    .range-wrap { position: relative; }
+    input[type="range"] {
+      width: 100%; height: 5px; appearance: none;
+      background: var(--border); border-radius: 3px; border: none;
+      cursor: pointer; outline: none;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      appearance: none; width: 20px; height: 20px;
+      background: var(--blue); border-radius: 50%;
+      border: 3px solid var(--white);
+      box-shadow: 0 2px 8px rgba(26,86,219,.35);
+      cursor: pointer; transition: var(--ease);
+    }
+    input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.15); }
+    .range-val-badge {
+      display: inline-block;
+      background: var(--blue); color: var(--white);
+      padding: 2px 9px; border-radius: 100px;
+      font-size: .77rem; font-weight: 700; margin-left: 8px;
+    }
+
+    /* Radio group */
+    .radio-group { display: flex; gap: 8px; }
+    .radio-opt { flex: 1; cursor: pointer; }
+    .radio-opt input { display: none; }
+    .radio-face {
+      display: flex; align-items: center; justify-content: center;
+      padding: 10px 8px; border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm); background: var(--bg-soft);
+      font-size: .88rem; font-weight: 500; color: var(--text-2);
+      cursor: pointer; transition: var(--ease);
+    }
+    .radio-opt input:checked + .radio-face {
+      border-color: var(--blue); background: var(--blue-light);
+      color: var(--blue); font-weight: 600;
+    }
+    .radio-face:hover { border-color: var(--blue); }
+
+    /* Submit button */
+    .btn-predict {
+      width: 100%; padding: 15px;
+      border: none; border-radius: var(--radius-md);
+      font-family: var(--display); font-size: 1rem; font-weight: 700;
+      letter-spacing: .02em; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      margin-top: 24px; transition: var(--ease); position: relative; overflow: hidden;
+    }
+    .btn-predict:hover { transform: translateY(-2px); }
+    .btn-predict:active { transform: none; }
+    .btn-predict:disabled { opacity: .6; cursor: not-allowed; transform: none !important; }
+    .btn-predict.d-btn { background: var(--blue); color: var(--white); box-shadow: 0 4px 18px rgba(26,86,219,.35); }
+    .btn-predict.d-btn:hover { background: var(--blue-dark); }
+    .btn-predict.h-btn { background: #be123c; color: var(--white); box-shadow: 0 4px 18px rgba(190,18,60,.35); }
+    .btn-predict.h-btn:hover { background: #9f1239; }
+    .btn-predict svg { width: 18px; height: 18px; fill: none; stroke: currentColor; flex-shrink: 0; }
+
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,.35); border-top-color: #fff;
+      border-radius: 50%; animation: spin .7s linear infinite; display: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Error notice */
+    .notice-box {
+      display: none; align-items: flex-start; gap: 10px;
+      background: #fff1f2; border: 1px solid #fecdd3;
+      border-radius: var(--radius-sm); padding: 13px 15px;
+      font-size: .88rem; color: #9f1239; margin-top: 12px;
+    }
+    .notice-box.visible { display: flex; }
+    .notice-box svg { width: 17px; height: 17px; stroke: #be123c; fill: none; flex-shrink: 0; margin-top: 1px; }
+
+    /* Server status */
+    .status-bar {
+      display: none; align-items: center; gap: 10px;
+      border-radius: var(--radius-sm); padding: 11px 16px;
+      font-size: .85rem; margin-bottom: 20px;
+      border: 1px solid;
+    }
+    .status-bar.ok { background: #f0fdf4; border-color: #bbf7d0; color: #166534; }
+    .status-bar.err { background: #fff1f2; border-color: #fecdd3; color: #9f1239; }
+    .status-bar.visible { display: flex; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .status-bar.ok .status-dot { background: #22c55e; }
+    .status-bar.err .status-dot { background: #ef4444; }
+
+    /* =====================================================
+       RESULT PANEL  (inside form card, below button)
+    ===================================================== */
+    .result-wrap { display: none; margin-top: 34px; }
+    .result-wrap.visible { display: block; }
+    .result-divider {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 26px;
+    }
+    .result-divider::before, .result-divider::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+    .result-divider span {
+      font-size: .72rem; font-weight: 700; color: var(--text-3);
+      text-transform: uppercase; letter-spacing: .1em;
+    }
+
+    /* Gauge */
+    .gauge-area { text-align: center; margin-bottom: 24px; }
+    .gauge-label {
+      font-size: .75rem; font-weight: 700; color: var(--text-3);
+      text-transform: uppercase; letter-spacing: .08em; margin-bottom: 20px;
+    }
+    .gauge-wrap {
+      position: relative; width: 220px; height: 128px; margin: 0 auto 14px;
+    }
+    .gauge-svg { width: 100%; height: 100%; overflow: visible; }
+    .g-track { fill: none; stroke: var(--border); stroke-width: 14; stroke-linecap: round; }
+    .g-fill  { fill: none; stroke-width: 14; stroke-linecap: round;
+                transition: stroke-dashoffset 1.3s cubic-bezier(.4,0,.2,1), stroke .5s ease; }
+    .gauge-center {
+      position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); text-align: center;
+    }
+    .gauge-pct { font-family: var(--display); font-size: 2.4rem; font-weight: 900; line-height: 1; color: var(--text-1); }
+    .gauge-sub { font-size: .72rem; color: var(--text-3); margin-top: 2px; }
+    .risk-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: .95rem; font-weight: 700;
+      padding: 8px 22px; border-radius: 100px; border: 2px solid;
+      margin-top: 12px;
+    }
+
+    /* Result message */
+    .result-msg {
+      background: var(--bg-soft); border: 1px solid var(--border);
+      border-left: 3px solid var(--blue);
+      border-radius: var(--radius-sm); padding: 16px;
+      font-size: .92rem; line-height: 1.75; color: var(--text-2);
+      margin-bottom: 18px;
+    }
+
+    /* Explain toggle */
+    .explain-toggle {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; background: var(--bg-soft); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 13px 16px;
+      font-size: .88rem; font-weight: 600; color: var(--text-2);
+      cursor: pointer; transition: var(--ease); text-align: left; margin-bottom: 14px;
+    }
+    .explain-toggle:hover { border-color: var(--blue); color: var(--blue); }
+    .explain-toggle .arr { transition: transform .25s; }
+    .explain-toggle.open .arr { transform: rotate(180deg); }
+    .explain-body {
+      display: none; background: var(--bg-soft); border: 1px solid var(--border);
+      border-top: none; border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+      padding: 14px 16px; font-size: .87rem; color: var(--text-2);
+      line-height: 1.75; margin-top: -14px; margin-bottom: 14px;
+    }
+    .explain-body.open { display: block; }
+    .explain-body ul { padding-left: 18px; margin-top: 8px; display: flex; flex-direction: column; gap: 5px; }
+
+    /* Recommendations */
+    .recs-box {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 22px; margin-bottom: 18px;
+    }
+    .recs-title { font-family: var(--display); font-size: 1rem; font-weight: 700; margin-bottom: 14px; color: var(--text-1); }
+    .rec-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .rec-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: .88rem; color: var(--text-2); line-height: 1.55;
+      animation: fadeIn .3s ease both;
+    }
+    .rec-dot {
+      width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+      background: var(--blue-light); border: 1.5px solid #93c5fd;
+      display: flex; align-items: center; justify-content: center; margin-top: 0;
+    }
+    .rec-dot svg { width: 11px; height: 11px; stroke: var(--blue); fill: none; }
+    @keyframes fadeIn { from{opacity:0;transform:translateX(-6px)} to{opacity:1;transform:none} }
+
+    /* Action buttons */
+    .result-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
+    .btn-action {
+      flex: 1; min-width: 130px; padding: 10px 16px;
+      border-radius: 100px; border: 1.5px solid var(--border);
+      background: transparent; color: var(--text-2);
+      font-size: .85rem; font-weight: 600; cursor: pointer; transition: var(--ease);
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+    }
+    .btn-action svg { width: 16px; height: 16px; stroke: currentColor; fill: none; }
+    .btn-action:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
+
+    /* Disclaimer */
+    .result-disclaimer {
+      font-size: .76rem; color: var(--text-3); text-align: center;
+      line-height: 1.6; margin-top: 14px;
+    }
+    .result-disclaimer strong { color: var(--text-2); }
+
+    /* =====================================================
+       FAQ
+    ===================================================== */
+    #faq { background: var(--bg-soft); padding: 90px 0; }
+    .faq-grid { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+    .faq-item {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-md); overflow: hidden; transition: border-color var(--ease);
+    }
+    .faq-item:hover { border-color: #93c5fd; }
+    .faq-q {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 22px; cursor: pointer; font-size: .95rem; font-weight: 600;
+      color: var(--text-1); background: none; border: none; width: 100%; text-align: left;
+      transition: color var(--ease);
+    }
+    .faq-item.open .faq-q { color: var(--blue); }
+    .faq-arrow { transition: transform .25s; color: var(--text-3); }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); color: var(--blue); }
+    .faq-a {
+      display: none; padding: 0 22px 18px;
+      font-size: .9rem; color: var(--text-2); line-height: 1.75;
+    }
+    .faq-a ul { padding-left: 18px; margin-top: 8px; display: flex; flex-direction: column; gap: 4px; }
+    .faq-item.open .faq-a { display: block; }
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+    footer {
+      background: var(--bg-dark); color: rgba(255,255,255,.8);
+      padding: 60px 0 0;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 50px; padding-bottom: 50px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+    .footer-brand .logo-name { color: var(--white); }
+    .footer-brand .logo-tag { color: rgba(255,255,255,.4); }
+    .footer-tagline { font-size: .87rem; color: rgba(255,255,255,.5); margin-top: 14px; line-height: 1.7; max-width: 300px; }
+    .footer-col h4 {
+      font-size: .75rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .1em; color: rgba(255,255,255,.4); margin-bottom: 16px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .footer-col a { font-size: .88rem; color: rgba(255,255,255,.6); transition: var(--ease); }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 14px; padding: 22px 0;
+    }
+    .footer-copy { font-size: .8rem; color: rgba(255,255,255,.35); }
+    .footer-disclaimer { font-size: .78rem; color: rgba(255,255,255,.3); max-width: 480px; line-height: 1.5; }
+    .footer-disclaimer strong { color: rgba(255,255,255,.5); }
+
+    /* =====================================================
+       ANIMATIONS & RESPONSIVE
+    ===================================================== */
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:none} }
+    .fade-up { animation: fadeUp .6s ease both; }
+
+    @media (max-width: 960px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-image { display: none; }
+      .hero-text { padding: 60px 0; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-img-badge { bottom: 10px; right: 10px; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .container { padding: 0 16px; }
+      .form-card { padding: 22px 18px; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav-links { display: none; }
+    }
+    @media print {
+      #navbar, .sample-row, .btn-predict, .result-actions, #hero, #how-it-works, #services, #about, #stats-bar, #faq, footer { display: none !important; }
+      .form-card { box-shadow: none; border: 1px solid #ccc; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════ NAVBAR ═══════════ -->
+<header id="navbar">
+  <div class="container">
+    <nav class="nav-inner" role="navigation" aria-label="Main navigation">
+      <a href="#" class="logo" id="logo-link">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L12 22M2 12L22 12" stroke="white" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="logo-name">MedPredict AI</div>
+          <div class="logo-tag">Digital Health Companion</div>
+        </div>
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#predictor">Assessment</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#predictor" class="nav-cta" id="nav-cta-btn">Run Assessment</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-text fade-up">
+        <span class="hero-label">Digital Health Companion</span>
+        <h1>Your Health,<br /><span>Our Priority</span></h1>
+        <p>Get instant health risk insights for Diabetes and Heart Disease, then explore connected care options for telemedicine, report analysis, and mental wellness support.</p>
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="document.getElementById('predictor').scrollIntoView({behavior:'smooth'})" id="hero-cta">Run Free Assessment</button>
+          <button class="btn-outline" onclick="document.getElementById('how-it-works').scrollIntoView({behavior:'smooth'})" id="hero-learn">How It Works</button>
+        </div>
+        <div class="hero-trust">
+          <div class="trust-avatars">
+            <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=60&h=60&q=80" alt="Doctor" />
+            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=60&h=60&q=80" alt="Doctor" />
+            <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=60&h=60&q=80" alt="Doctor" />
+          </div>
+          <div class="trust-text">
+            <strong>Trusted Assessment Tool</strong>
+            <span>Based on validated clinical datasets</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=85" alt="Doctor consulting with patient" />
+        <!-- Floating stat cards -->
+        <div class="hero-stat-card top">
+          <div class="stat-icon blue">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <div class="stat-val">&ge;84%</div>
+            <div class="stat-lbl">Model Accuracy</div>
+          </div>
+        </div>
+        <div class="hero-stat-card bottom">
+          <div class="stat-icon teal">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <div class="stat-val">&lt; 1s</div>
+            <div class="stat-lbl">Result Speed</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ STATS BAR ═══════════ -->
+<section id="stats-bar" aria-label="Key statistics">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stats-item">
+        <div class="stats-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/></svg>
+        </div>
+        <div class="stats-num">50k<sup>+</sup></div>
+        <div class="stats-label">Assessments Run</div>
+      </div>
+      <div class="stats-item">
+        <div class="stats-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/></svg>
+        </div>
+        <div class="stats-num">5</div>
+        <div class="stats-label">Care Options</div>
+      </div>
+      <div class="stats-item">
+        <div class="stats-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/></svg>
+        </div>
+        <div class="stats-num">&ge;82%</div>
+        <div class="stats-label">Diabetes Accuracy</div>
+      </div>
+      <div class="stats-item">
+        <div class="stats-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/></svg>
+        </div>
+        <div class="stats-num">&ge;84%</div>
+        <div class="stats-label">Heart Accuracy</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ ABOUT ═══════════ -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-wrap fade-up">
+        <div class="about-img-main">
+          <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=700&q=85" alt="Medical professional with patient" />
+        </div>
+        <div class="about-img-badge">
+          <span class="b-num">3k+</span>
+          <span class="b-txt">Clinical Records Trained On</span>
+        </div>
+      </div>
+      <div class="about-text fade-up">
+        <span class="section-tag">About This Tool</span>
+        <h2>Smart Support for Early Health Awareness</h2>
+        <p>MedPredict AI uses trained Random Forest machine learning models to assess your risk for two of the most prevalent chronic conditions — Diabetes and Heart Disease. It also presents practical next-step care options so health awareness can lead to action.</p>
+        <ul class="about-points">
+          <li>
+            <span class="check-icon">
+              <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            No appointment or sign-up required — completely free
+          </li>
+          <li>
+            <span class="check-icon">
+              <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            Plain-English results anyone can understand
+          </li>
+          <li>
+            <span class="check-icon">
+              <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            Personalised recommendations included with every report
+          </li>
+          <li>
+            <span class="check-icon">
+              <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            Your data is never stored or shared
+          </li>
+        </ul>
+        <button class="btn-primary" onclick="document.getElementById('predictor').scrollIntoView({behavior:'smooth'})" id="about-cta">Start My Assessment</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ HOW IT WORKS ═══════════ -->
+<section id="services">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag-center">More Things To Do</span>
+      <h2 class="section-title">Connected Care Services</h2>
+      <p class="section-sub">Use the assessment as a starting point, then choose the kind of care support you need next.</p>
+    </div>
+    <div class="services-grid">
+      <article class="service-card fade-up">
+        <div class="service-icon video">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 10l4.5-3v10L15 14v3H4a2 2 0 01-2-2V9a2 2 0 012-2h11v3z" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Telemedicine</h3>
+        <p>Connect with a healthcare professional for remote guidance after reviewing your risk results.</p>
+        <ul class="service-list">
+          <li>Virtual doctor consultation</li>
+          <li>Follow-up planning</li>
+          <li>Prescription and referral guidance</li>
+        </ul>
+      </article>
+      <article class="service-card fade-up" style="animation-delay:.1s">
+        <div class="service-icon report">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 17h6M9 13h6M9 9h2m6 12H7a2 2 0 01-2-2V5a2 2 0 012-2h5.5L19 9.5V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 3v5a2 2 0 002 2h5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Medical Report Analysis</h3>
+        <p>Turn lab values and medical reports into clearer summaries that are easier to discuss with your clinician.</p>
+        <ul class="service-list">
+          <li>Key value interpretation</li>
+          <li>Abnormal marker highlights</li>
+          <li>Questions to ask your doctor</li>
+        </ul>
+      </article>
+      <article class="service-card fade-up" style="animation-delay:.2s">
+        <div class="service-icon mind">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 21s-7-4.4-7-10a5 5 0 018.7-3.4A5 5 0 0122 11c0 5.6-7 10-7 10h-3z" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 12h3l1-2 2 5 1-3h3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Mental Health Support</h3>
+        <p>Access supportive wellness resources for stress, anxiety, mood tracking, and healthy coping routines.</p>
+        <ul class="service-list">
+          <li>Wellness check-ins</li>
+          <li>Stress management resources</li>
+          <li>Professional support pathways</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="how-it-works">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag-center">Simple Process</span>
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-sub">Three simple steps to get your personalised health risk report — no medical background needed.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card fade-up">
+        <div class="step-num-text">01</div>
+        <div class="step-num-wrap">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="step-title">Enter Your Measurements</div>
+        <p class="step-desc">Fill in basic clinical values like blood pressure, glucose and BMI. Every field includes a plain-English hint explaining what it is and where to find it on your lab report.</p>
+      </div>
+      <div class="step-card fade-up" style="animation-delay:.1s">
+        <div class="step-num-text">02</div>
+        <div class="step-num-wrap">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="step-title">AI Analyses Your Data</div>
+        <p class="step-desc">Our Random Forest model — trained on thousands of clinical records — processes your inputs in milliseconds to calculate a personalised risk probability score.</p>
+      </div>
+      <div class="step-card fade-up" style="animation-delay:.2s">
+        <div class="step-num-text">03</div>
+        <div class="step-num-wrap">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="step-title">Get Your Risk Report</div>
+        <p class="step-desc">Receive a clear risk percentage, a plain-English explanation of what it means, and a personalised list of next steps and lifestyle recommendations.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PREDICTOR ═══════════ -->
+<section id="predictor">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag-center">AI Assessment Tool</span>
+      <h2 class="section-title">Run Your Health Assessment</h2>
+      <p class="section-sub">Select a condition, fill in your clinical values, and tap Analyse to get instant results.</p>
+    </div>
+
+    <!-- Server status -->
+    <div style="max-width:700px;margin:0 auto 16px;">
+      <div class="status-bar" id="server-status" role="alert" aria-live="assertive"></div>
+    </div>
+
+    <!-- Tab switcher -->
+    <div class="tab-wrap" role="tablist">
+      <div class="tabs">
+        <button class="tab-btn active d-tab" id="tab-diabetes" data-tab="diabetes"
+          role="tab" aria-selected="true" aria-controls="panel-diabetes"
+          onclick="switchTab('diabetes')">
+          <!-- Droplet / Syringe icon -->
+          <svg class="tab-icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2a8 8 0 010 16A8 8 0 0112 2zm0 0v2m0 12v2m8-8h-2M4 12H2" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Diabetes
+        </button>
+        <button class="tab-btn h-tab" id="tab-heart" data-tab="heart"
+          role="tab" aria-selected="false" aria-controls="panel-heart"
+          onclick="switchTab('heart')">
+          <!-- Heart icon -->
+          <svg class="tab-icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Heart Disease
+        </button>
+      </div>
+    </div>
+
+    <div class="predictor-wrap">
+
+      <!-- ─── DIABETES PANEL ─── -->
+      <div id="panel-diabetes" class="panel active" role="tabpanel">
+        <div class="form-card">
+          <div class="card-hd">
+            <div class="card-icon-box d-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="card-hd-info">
+              <div class="card-title">Diabetes Risk Assessment</div>
+              <div class="card-sub">Based on the Pima Indians Diabetes Dataset &bull; 8 clinical features</div>
+            </div>
+          </div>
+
+          <!-- Sample data -->
+          <div class="sample-row">
+            <span class="sample-label">Try a sample profile:</span>
+            <button class="sample-btn" id="d-sample-healthy" onclick="fillDiabetesSample('healthy')" type="button">Healthy Profile</button>
+            <button class="sample-btn" id="d-sample-risk" onclick="fillDiabetesSample('risk')" type="button">High Risk Profile</button>
+          </div>
+
+          <form id="diabetes-form" onsubmit="predictDiabetes(event)" novalidate>
+
+            <div class="form-section">Personal Information</div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="d-age">
+                  Age <span class="lbl-unit">(years)</span>
+                  <span class="tip" data-tip="Your current age in years. Range: 21–81." tabindex="0">i</span>
+                </label>
+                <input type="number" id="d-age" name="age" min="21" max="81" value="33" required />
+              </div>
+              <div class="form-group">
+                <label for="d-pregnancies">
+                  Pregnancies
+                  <span class="tip" data-tip="Number of times pregnant. Enter 0 if male or never pregnant." tabindex="0">i</span>
+                </label>
+                <input type="number" id="d-pregnancies" name="pregnancies" min="0" max="20" value="1" required />
+              </div>
+            </div>
+
+            <div class="form-section">Blood &amp; Metabolic Values</div>
+            <div class="form-group">
+              <label for="d-glucose">
+                Glucose Level <span class="lbl-unit">(mg/dL)</span>
+                <span class="range-val-badge" id="d-glucose-val">120</span>
+                <span class="tip" data-tip="Plasma glucose from a 2-hour oral glucose tolerance test. Check your lab report for 'Fasting Blood Sugar'." tabindex="0">i</span>
+              </label>
+              <input type="range" id="d-glucose" name="glucose" min="44" max="199" value="120"
+                oninput="document.getElementById('d-glucose-val').textContent=this.value" />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="d-bp">
+                  Blood Pressure <span class="lbl-unit">(mmHg)</span>
+                  <span class="tip" data-tip="Diastolic blood pressure — the lower number (e.g., 80 in 120/80)." tabindex="0">i</span>
+                </label>
+                <input type="number" id="d-bp" name="bloodPressure" min="24" max="122" value="70" required />
+              </div>
+              <div class="form-group">
+                <label for="d-insulin">
+                  Insulin <span class="lbl-unit">(uU/mL)</span>
+                  <span class="tip" data-tip="2-hour serum insulin level from your lab report. Enter 0 if unknown." tabindex="0">i</span>
+                </label>
+                <input type="number" id="d-insulin" name="insulin" min="0" max="846" value="79" required />
+              </div>
+            </div>
+
+            <div class="form-section">Body Measurements</div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="d-bmi">
+                  BMI
+                  <span class="tip" data-tip="Body Mass Index = weight(kg) / height(m)squared. Available on most health apps." tabindex="0">i</span>
+                </label>
+                <input type="number" id="d-bmi" name="bmi" step="0.1" min="1" max="67" value="28.0" required />
+              </div>
+              <div class="form-group">
+                <label for="d-skin">
+                  Skin Thickness <span class="lbl-unit">(mm)</span>
+                  <span class="tip" data-tip="Triceps skinfold thickness — a body fat measure. Enter 20 if unknown." tabindex="0">i</span>
+                </label>
+                <input type="number" id="d-skin" name="skinThickness" min="0" max="99" value="23" required />
+              </div>
+            </div>
+
+            <div class="form-section">Genetic Factors</div>
+            <div class="form-group">
+              <label for="d-dpf">
+                Diabetes Pedigree Function
+                <span class="range-val-badge" id="d-dpf-val">0.470</span>
+                <span class="tip" data-tip="Reflects family history of diabetes. Higher = more relatives with diabetes. Range: 0.1–2.4. Use 0.5 if unsure." tabindex="0">i</span>
+              </label>
+              <input type="range" id="d-dpf" name="diabetesPedigreeFunction"
+                min="0.078" max="2.42" step="0.001" value="0.47"
+                oninput="document.getElementById('d-dpf-val').textContent=parseFloat(this.value).toFixed(3)" />
+            </div>
+
+            <div class="notice-box" id="d-error" role="alert">
+              <svg viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span id="d-error-msg">An error occurred. Please ensure the backend server is running.</span>
+            </div>
+
+            <button type="submit" class="btn-predict d-btn" id="d-submit-btn">
+              <div class="spinner" id="d-spinner"></div>
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span id="d-btn-text">Analyse Diabetes Risk</span>
+            </button>
+          </form>
+
+          <!-- DIABETES RESULT -->
+          <div class="result-wrap" id="d-result" role="region" aria-live="polite">
+            <div class="result-divider"><span>Your Results</span></div>
+            <div class="gauge-area">
+              <div class="gauge-label">Diabetes Risk Score</div>
+              <div class="gauge-wrap">
+                <svg class="gauge-svg" viewBox="0 0 220 130" aria-hidden="true">
+                  <path class="g-track" d="M 15 118 A 95 95 0 0 1 205 118" stroke-dasharray="298" stroke-dashoffset="0"/>
+                  <path class="g-fill" id="d-gauge-fill" d="M 15 118 A 95 95 0 0 1 205 118" stroke-dasharray="298" stroke-dashoffset="298" stroke="#1a56db"/>
+                </svg>
+                <div class="gauge-center">
+                  <div class="gauge-pct" id="d-gauge-pct">0%</div>
+                  <div class="gauge-sub">Risk Score</div>
+                </div>
+              </div>
+              <div class="risk-badge" id="d-risk-badge" style="color:#1a56db;border-color:#1a56db;background:#dbeafe">Awaiting Analysis</div>
+            </div>
+
+            <div class="result-msg" id="d-message">Submit the form above to see your personalised diabetes risk analysis.</div>
+
+            <button class="explain-toggle" id="d-explain-toggle" onclick="toggleExplain('d')" type="button" aria-expanded="false">
+              <span>What does my result mean?</span>
+              <svg class="arr" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"><path d="M6 9l6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="explain-body" id="d-explain-body">
+              <p>Your risk score is an AI-estimated probability that you may develop diabetes. It is <strong>not a diagnosis</strong>.</p>
+              <ul>
+                <li><strong>0–20%</strong> — Very Low: Keep up your healthy habits.</li>
+                <li><strong>20–40%</strong> — Low: Maintain diet and exercise routines.</li>
+                <li><strong>40–60%</strong> — Moderate: Consider a check-up within 3 months.</li>
+                <li><strong>60–80%</strong> — High: Speak with your doctor soon.</li>
+                <li><strong>80–100%</strong> — Very High: Seek medical attention promptly.</li>
+              </ul>
+            </div>
+
+            <div class="recs-box">
+              <div class="recs-title">Personalised Recommendations</div>
+              <ul class="rec-list" id="d-recs">
+                <li class="rec-item"><div class="rec-dot"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span>Complete the assessment above to receive personalised recommendations.</span></li>
+              </ul>
+            </div>
+
+            <div class="result-actions">
+              <button class="btn-action" onclick="window.print()" type="button" id="d-print-btn">
+                <svg viewBox="0 0 24 24"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Print Report
+              </button>
+              <button class="btn-action" onclick="resetForm('d')" type="button" id="d-reset-btn">
+                <svg viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                New Assessment
+              </button>
+            </div>
+
+            <p class="result-disclaimer">
+              <strong>Medical Disclaimer:</strong> This tool provides ML-based risk estimates only. It is
+              <strong>not a substitute</strong> for professional medical advice or diagnosis. Always consult a qualified healthcare provider.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── HEART DISEASE PANEL ─── -->
+      <div id="panel-heart" class="panel" role="tabpanel">
+        <div class="form-card">
+          <div class="card-hd">
+            <div class="card-icon-box h-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="card-hd-info">
+              <div class="card-title">Heart Disease Risk Assessment</div>
+              <div class="card-sub">Based on the Cleveland Heart Disease Dataset &bull; 13 clinical features</div>
+            </div>
+          </div>
+
+          <div class="sample-row">
+            <span class="sample-label">Try a sample profile:</span>
+            <button class="sample-btn" id="h-sample-healthy" onclick="fillHeartSample('healthy')" type="button">Healthy Profile</button>
+            <button class="sample-btn" id="h-sample-risk" onclick="fillHeartSample('risk')" type="button">High Risk Profile</button>
+          </div>
+
+          <form id="heart-form" onsubmit="predictHeart(event)" novalidate>
+
+            <div class="form-section">Demographics</div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="h-age">
+                  Age <span class="lbl-unit">(years)</span>
+                  <span class="tip" data-tip="Your current age. Training data covers ages 29–77." tabindex="0">i</span>
+                </label>
+                <input type="number" id="h-age" name="age" min="29" max="77" value="50" required />
+              </div>
+              <div class="form-group">
+                <label>
+                  Biological Sex
+                  <span class="tip" data-tip="Biological sex affects cardiovascular risk factors significantly." tabindex="0">i</span>
+                </label>
+                <div class="radio-group" role="radiogroup">
+                  <label class="radio-opt"><input type="radio" name="h-sex" id="h-sex-m" value="1" checked /><span class="radio-face">Male</span></label>
+                  <label class="radio-opt"><input type="radio" name="h-sex" id="h-sex-f" value="0" /><span class="radio-face">Female</span></label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section">Chest Pain &amp; Vital Signs</div>
+            <div class="form-group">
+              <label for="h-cp">
+                Chest Pain Type
+                <span class="tip" data-tip="Type of chest pain experienced. Choose 'Asymptomatic' if you have no chest pain." tabindex="0">i</span>
+              </label>
+              <select id="h-cp" name="cp">
+                <option value="0">Typical Angina — Chest tightness during exertion</option>
+                <option value="1" selected>Atypical Angina — Chest discomfort, different pattern</option>
+                <option value="2">Non-Anginal Pain — Chest pain unrelated to heart</option>
+                <option value="3">Asymptomatic — No chest pain</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="h-trestbps">
+                  Resting Blood Pressure <span class="lbl-unit">(mmHg)</span>
+                  <span class="tip" data-tip="The top (systolic) number of your BP reading at rest (e.g., 120 in 120/80)." tabindex="0">i</span>
+                </label>
+                <input type="number" id="h-trestbps" name="trestbps" min="94" max="200" value="130" required />
+              </div>
+              <div class="form-group">
+                <label for="h-chol">
+                  Cholesterol <span class="lbl-unit">(mg/dL)</span>
+                  <span class="tip" data-tip="Total serum cholesterol from a blood lipid panel (labelled 'Total Cholesterol')." tabindex="0">i</span>
+                </label>
+                <input type="number" id="h-chol" name="chol" min="126" max="564" value="246" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>
+                  Fasting Blood Sugar &gt; 120 mg/dL?
+                  <span class="tip" data-tip="Is your fasting blood sugar above 120 mg/dL? Check your fasting glucose lab result." tabindex="0">i</span>
+                </label>
+                <div class="radio-group" role="radiogroup">
+                  <label class="radio-opt"><input type="radio" name="h-fbs" id="h-fbs-no" value="0" checked /><span class="radio-face">No</span></label>
+                  <label class="radio-opt"><input type="radio" name="h-fbs" id="h-fbs-yes" value="1" /><span class="radio-face">Yes</span></label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="h-restecg">
+                  Resting ECG Result
+                  <span class="tip" data-tip="Result of your resting electrocardiogram. Choose 'Normal' if no ECG on file." tabindex="0">i</span>
+                </label>
+                <select id="h-restecg" name="restecg">
+                  <option value="0">Normal</option>
+                  <option value="1" selected>ST-T Wave Abnormality</option>
+                  <option value="2">Left Ventricular Hypertrophy</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-section">Exercise &amp; Heart Rate</div>
+            <div class="form-group">
+              <label for="h-thalach">
+                Maximum Heart Rate
+                <span class="range-val-badge" id="h-thalach-val">150</span>
+                <span class="tip" data-tip="Highest heart rate during a stress test. Estimate: 220 minus your age." tabindex="0">i</span>
+              </label>
+              <input type="range" id="h-thalach" name="thalach" min="71" max="202" value="150"
+                oninput="document.getElementById('h-thalach-val').textContent=this.value" />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>
+                  Exercise-Induced Angina?
+                  <span class="tip" data-tip="Do you experience chest pain specifically during physical exercise?" tabindex="0">i</span>
+                </label>
+                <div class="radio-group" role="radiogroup">
+                  <label class="radio-opt"><input type="radio" name="h-exang" id="h-exang-no" value="0" checked /><span class="radio-face">No</span></label>
+                  <label class="radio-opt"><input type="radio" name="h-exang" id="h-exang-yes" value="1" /><span class="radio-face">Yes</span></label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="h-oldpeak">
+                  ST Depression <span class="lbl-unit">(oldpeak)</span>
+                  <span class="tip" data-tip="ST depression from a stress ECG report. Enter 0 if you don't have this value." tabindex="0">i</span>
+                </label>
+                <input type="number" id="h-oldpeak" name="oldpeak" step="0.1" min="0" max="6.2" value="1.0" required />
+              </div>
+            </div>
+
+            <div class="form-section">Advanced Cardiac Values</div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="h-slope">
+                  Slope of Peak ST Segment
+                  <span class="tip" data-tip="Slope of peak ST during exercise — from a stress ECG. Choose 'Flat' if unsure." tabindex="0">i</span>
+                </label>
+                <select id="h-slope" name="slope">
+                  <option value="0">Upsloping</option>
+                  <option value="1" selected>Flat</option>
+                  <option value="2">Downsloping</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="h-ca">
+                  Major Vessels (Fluoroscopy)
+                  <span class="tip" data-tip="Number of major vessels in a coronary fluoroscopy. Enter 0 if you haven't had this procedure." tabindex="0">i</span>
+                </label>
+                <select id="h-ca" name="ca">
+                  <option value="0" selected>0 vessels</option>
+                  <option value="1">1 vessel</option>
+                  <option value="2">2 vessels</option>
+                  <option value="3">3 vessels</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="h-thal">
+                Thalassemia Type
+                <span class="tip" data-tip="Result from a thallium stress test showing heart blood flow. Choose 'Normal' if no test done." tabindex="0">i</span>
+              </label>
+              <select id="h-thal" name="thal">
+                <option value="0">Normal — Normal blood flow</option>
+                <option value="1">Fixed Defect — Permanent reduced flow</option>
+                <option value="2" selected>Reversible Defect — Reduced flow during stress</option>
+                <option value="3">Unknown</option>
+              </select>
+            </div>
+
+            <div class="notice-box" id="h-error" role="alert">
+              <svg viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span id="h-error-msg">An error occurred. Please ensure the backend server is running.</span>
+            </div>
+
+            <button type="submit" class="btn-predict h-btn" id="h-submit-btn">
+              <div class="spinner" id="h-spinner"></div>
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span id="h-btn-text">Analyse Heart Disease Risk</span>
+            </button>
+          </form>
+
+          <!-- HEART RESULT -->
+          <div class="result-wrap" id="h-result" role="region" aria-live="polite">
+            <div class="result-divider"><span>Your Results</span></div>
+            <div class="gauge-area">
+              <div class="gauge-label">Heart Disease Risk Score</div>
+              <div class="gauge-wrap">
+                <svg class="gauge-svg" viewBox="0 0 220 130" aria-hidden="true">
+                  <path class="g-track" d="M 15 118 A 95 95 0 0 1 205 118" stroke-dasharray="298" stroke-dashoffset="0"/>
+                  <path class="g-fill" id="h-gauge-fill" d="M 15 118 A 95 95 0 0 1 205 118" stroke-dasharray="298" stroke-dashoffset="298" stroke="#be123c"/>
+                </svg>
+                <div class="gauge-center">
+                  <div class="gauge-pct" id="h-gauge-pct">0%</div>
+                  <div class="gauge-sub">Risk Score</div>
+                </div>
+              </div>
+              <div class="risk-badge" id="h-risk-badge" style="color:#be123c;border-color:#be123c;background:#ffe4e6">Awaiting Analysis</div>
+            </div>
+
+            <div class="result-msg" id="h-message">Submit the form above to see your personalised heart disease risk analysis.</div>
+
+            <button class="explain-toggle" id="h-explain-toggle" onclick="toggleExplain('h')" type="button" aria-expanded="false">
+              <span>What does my result mean?</span>
+              <svg class="arr" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"><path d="M6 9l6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="explain-body" id="h-explain-body">
+              <p>Your risk score is an AI-estimated probability of cardiovascular disease. It is <strong>not a clinical diagnosis</strong>.</p>
+              <ul>
+                <li><strong>0–20%</strong> — Very Low: Maintain your heart-healthy lifestyle.</li>
+                <li><strong>20–40%</strong> — Low: Monitor key vitals annually.</li>
+                <li><strong>40–60%</strong> — Moderate: Discuss results with your GP.</li>
+                <li><strong>60–80%</strong> — High: Seek a cardiological evaluation soon.</li>
+                <li><strong>80–100%</strong> — Very High: Seek medical attention promptly.</li>
+              </ul>
+            </div>
+
+            <div class="recs-box">
+              <div class="recs-title">Personalised Recommendations</div>
+              <ul class="rec-list" id="h-recs">
+                <li class="rec-item"><div class="rec-dot"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span>Complete the assessment above to receive personalised recommendations.</span></li>
+              </ul>
+            </div>
+
+            <div class="result-actions">
+              <button class="btn-action" onclick="window.print()" type="button" id="h-print-btn">
+                <svg viewBox="0 0 24 24"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Print Report
+              </button>
+              <button class="btn-action" onclick="resetForm('h')" type="button" id="h-reset-btn">
+                <svg viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                New Assessment
+              </button>
+            </div>
+
+            <p class="result-disclaimer">
+              <strong>Medical Disclaimer:</strong> This tool provides ML-based risk estimates only. It is
+              <strong>not a substitute</strong> for professional medical advice or diagnosis. Always consult a qualified healthcare provider.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /predictor-wrap -->
+  </div>
+</section>
+
+<!-- ═══════════ FAQ ═══════════ -->
+<section id="faq">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag-center">Common Questions</span>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <p class="section-sub">Everything you need to know before using the tool.</p>
+    </div>
+    <div class="faq-grid">
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" id="faq-1">
+          <span>Is this a replacement for seeing a doctor?</span>
+          <svg class="faq-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"><path d="M6 9l6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq-a"><strong>No.</strong> MedPredict AI is a <em>screening tool</em> — not a diagnostic tool. A risk score does not mean you have or don't have a condition. Always discuss results with a qualified healthcare professional before making any health decisions.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" id="faq-2">
+          <span>Where do I find my clinical values (glucose, cholesterol, etc.)?</span>
+          <svg class="faq-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"><path d="M6 9l6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq-a">Most values can be found on a recent blood test or lab report from your clinic. For values you don't have, the tool provides sensible defaults. Each field also has an <strong>i</strong> button explaining what to enter if you don't have an exact value.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" id="faq-3">
+          <span>How accurate is the AI model?</span>
+          <svg class="faq-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"><path d="M6 9l6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq-a">The diabetes model achieves <strong>82%+ accuracy</strong> and the heart disease model achieves <strong>84%+ accuracy</strong> on test data. These are strong results for population-level risk screening, but accuracy varies by individual.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" id="faq-4">
+          <span>Is my data stored or shared?</span>
+          <svg class="faq-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"><path d="M6 9l6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq-a"><strong>No.</strong> All data you enter is processed locally. It is not stored in any database, not sent to third parties, and not used for any other purpose. Your data is discarded immediately after the result is returned.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" id="faq-5">
+          <span>What should I do if my risk score is high?</span>
+          <svg class="faq-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"><path d="M6 9l6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq-a">
+          Don't panic — a high risk score means you may benefit from further evaluation, not that you have the condition. We recommend:
+          <ul>
+            <li>Print or screenshot your results</li>
+            <li>Book an appointment with your GP and share the report</li>
+            <li>Request the relevant blood tests or screening</li>
+            <li>Follow the personalised recommendations shown in your results</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <div class="logo-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2L12 22M2 12L22 12" stroke="white" stroke-width="3" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <div class="logo-name">MedPredict AI</div>
+            <div class="logo-tag">Health Risk Screening</div>
+          </div>
+        </div>
+        <p class="footer-tagline">Free, instant health risk insights with connected care options. No sign-up required. Built to make early health awareness accessible to everyone.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#predictor">Run Assessment</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Assessments</h4>
+        <ul>
+          <li><a href="#predictor" onclick="switchTab('diabetes')">Diabetes Screening</a></li>
+          <li><a href="#predictor" onclick="switchTab('heart')">Heart Disease Screening</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 MedPredict AI. All rights reserved.</p>
+      <p class="footer-disclaimer">
+        <strong>Medical Disclaimer:</strong> This tool is for informational screening purposes only. It is not a substitute for professional medical diagnosis or advice. Always consult a qualified healthcare provider regarding any medical condition.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════ JAVASCRIPT ═══════════ -->
+<script>
+  const API_BASE = "http://127.0.0.1:5000";
+
+  /* Tab switcher */
+  function switchTab(tab) {
+    document.querySelectorAll('.tab-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.tab === tab);
+      b.setAttribute('aria-selected', b.dataset.tab === tab);
+    });
+    document.querySelectorAll('.panel').forEach(p => {
+      p.classList.toggle('active', p.id === 'panel-' + tab);
+    });
+  }
+
+  /* FAQ accordion */
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+      i.querySelector('.faq-a').style.display = 'none';
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+      item.querySelector('.faq-a').style.display = 'block';
+    }
+  }
+  document.querySelectorAll('.faq-a').forEach(a => a.style.display = 'none');
+
+  /* Explain toggle */
+  function toggleExplain(prefix) {
+    const t = document.getElementById(prefix + '-explain-toggle');
+    const b = document.getElementById(prefix + '-explain-body');
+    const isOpen = t.classList.contains('open');
+    t.classList.toggle('open', !isOpen);
+    b.classList.toggle('open', !isOpen);
+    t.setAttribute('aria-expanded', !isOpen);
+  }
+
+  /* Gauge */
+  function setGauge(prefix, pct, color, level, icon) {
+    const fill  = document.getElementById(prefix + '-gauge-fill');
+    const pctEl = document.getElementById(prefix + '-gauge-pct');
+    const badge = document.getElementById(prefix + '-risk-badge');
+    const arc = 298;
+    fill.style.strokeDashoffset = arc - (arc * pct / 100);
+    fill.style.stroke = color;
+    let cur = parseInt(pctEl.textContent) || 0;
+    const step = (pct - cur) / (1200 / 16);
+    const tick = () => {
+      cur += step;
+      if ((step > 0 && cur >= pct) || (step < 0 && cur <= pct)) { pctEl.textContent = pct + '%'; return; }
+      pctEl.textContent = Math.round(cur) + '%';
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+    pctEl.style.color = color;
+    badge.textContent = level + ' Risk';
+    badge.style.color = color;
+    badge.style.borderColor = color;
+    badge.style.background = color + '18';
+  }
+
+  /* Loading */
+  function setLoading(prefix, on) {
+    const btn = document.getElementById(prefix + '-submit-btn');
+    const sp  = document.getElementById(prefix + '-spinner');
+    const txt = document.getElementById(prefix + '-btn-text');
+    btn.disabled = on;
+    sp.style.display = on ? 'block' : 'none';
+    txt.style.opacity = on ? '0.5' : '1';
+  }
+
+  /* Error */
+  function showError(prefix, msg) {
+    const box = document.getElementById(prefix + '-error');
+    document.getElementById(prefix + '-error-msg').textContent = msg;
+    box.classList.add('visible');
+    setTimeout(() => box.classList.remove('visible'), 8000);
+  }
+
+  /* Recommendations */
+  function renderRecs(prefix, recs) {
+    const ul = document.getElementById(prefix + '-recs');
+    ul.innerHTML = recs.map((r, i) => `
+      <li class="rec-item" style="animation-delay:${i * 0.05}s">
+        <div class="rec-dot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1a56db" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <span>${r}</span>
+      </li>`).join('');
+  }
+
+  /* Reset */
+  function resetForm(prefix) {
+    document.getElementById(prefix + '-result').classList.remove('visible');
+    if (prefix === 'd') {
+      document.getElementById('diabetes-form').reset();
+      document.getElementById('d-glucose-val').textContent = '120';
+      document.getElementById('d-dpf-val').textContent = '0.470';
+    }
+    if (prefix === 'h') {
+      document.getElementById('heart-form').reset();
+      document.getElementById('h-thalach-val').textContent = '150';
+    }
+  }
+
+  /* Diabetes prediction */
+  async function predictDiabetes(e) {
+    e.preventDefault();
+    setLoading('d', true);
+    const payload = {
+      pregnancies: parseInt(document.getElementById('d-pregnancies').value),
+      glucose: parseInt(document.getElementById('d-glucose').value),
+      bloodPressure: parseInt(document.getElementById('d-bp').value),
+      skinThickness: parseInt(document.getElementById('d-skin').value),
+      insulin: parseInt(document.getElementById('d-insulin').value),
+      bmi: parseFloat(document.getElementById('d-bmi').value),
+      diabetesPedigreeFunction: parseFloat(document.getElementById('d-dpf').value),
+      age: parseInt(document.getElementById('d-age').value),
+    };
+    try {
+      const res = await fetch(API_BASE + '/predict/diabetes', {
+        method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      const wrap = document.getElementById('d-result');
+      wrap.classList.add('visible');
+      wrap.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+      setGauge('d', data.risk_percentage, data.color, data.risk_level, data.icon);
+      document.getElementById('d-message').textContent = data.message;
+      renderRecs('d', data.recommendations);
+    } catch (err) {
+      showError('d', 'Connection error: ' + err.message + '. Make sure the Flask server is running on port 5000.');
+    } finally {
+      setLoading('d', false);
+    }
+  }
+
+  /* Heart prediction */
+  async function predictHeart(e) {
+    e.preventDefault();
+    setLoading('h', true);
+    const payload = {
+      age: parseInt(document.getElementById('h-age').value),
+      sex: parseInt(document.querySelector("input[name='h-sex']:checked").value),
+      cp: parseInt(document.getElementById('h-cp').value),
+      trestbps: parseInt(document.getElementById('h-trestbps').value),
+      chol: parseInt(document.getElementById('h-chol').value),
+      fbs: parseInt(document.querySelector("input[name='h-fbs']:checked").value),
+      restecg: parseInt(document.getElementById('h-restecg').value),
+      thalach: parseInt(document.getElementById('h-thalach').value),
+      exang: parseInt(document.querySelector("input[name='h-exang']:checked").value),
+      oldpeak: parseFloat(document.getElementById('h-oldpeak').value),
+      slope: parseInt(document.getElementById('h-slope').value),
+      ca: parseInt(document.getElementById('h-ca').value),
+      thal: parseInt(document.getElementById('h-thal').value),
+    };
+    try {
+      const res = await fetch(API_BASE + '/predict/heart', {
+        method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      const wrap = document.getElementById('h-result');
+      wrap.classList.add('visible');
+      wrap.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+      setGauge('h', data.risk_percentage, data.color, data.risk_level, data.icon);
+      document.getElementById('h-message').textContent = data.message;
+      renderRecs('h', data.recommendations);
+    } catch (err) {
+      showError('h', 'Connection error: ' + err.message + '. Make sure the Flask server is running on port 5000.');
+    } finally {
+      setLoading('h', false);
+    }
+  }
+
+  /* Sample data — Diabetes */
+  function fillDiabetesSample(p) {
+    const h = p === 'healthy';
+    document.getElementById('d-age').value = h ? 28 : 55;
+    document.getElementById('d-pregnancies').value = h ? 0 : 8;
+    document.getElementById('d-glucose').value = h ? 95 : 185;
+    document.getElementById('d-glucose-val').textContent = h ? 95 : 185;
+    document.getElementById('d-bp').value = h ? 66 : 92;
+    document.getElementById('d-skin').value = h ? 20 : 42;
+    document.getElementById('d-insulin').value = h ? 85 : 480;
+    document.getElementById('d-bmi').value = h ? 23.5 : 44.2;
+    document.getElementById('d-dpf').value = h ? 0.20 : 1.75;
+    document.getElementById('d-dpf-val').textContent = h ? '0.200' : '1.750';
+  }
+
+  /* Sample data — Heart */
+  function fillHeartSample(p) {
+    const h = p === 'healthy';
+    document.getElementById('h-age').value = h ? 40 : 67;
+    document.getElementById('h-cp').value = h ? 2 : 0;
+    document.getElementById('h-trestbps').value = h ? 118 : 160;
+    document.getElementById('h-chol').value = h ? 200 : 286;
+    document.getElementById('h-restecg').value = h ? 0 : 2;
+    document.getElementById('h-thalach').value = h ? 175 : 108;
+    document.getElementById('h-thalach-val').textContent = h ? 175 : 108;
+    document.getElementById('h-oldpeak').value = h ? 0.2 : 3.5;
+    document.getElementById('h-slope').value = h ? 2 : 0;
+    document.getElementById('h-ca').value = h ? 0 : 3;
+    document.getElementById('h-thal').value = 2;
+    document.getElementById('h-sex-m').checked = true;
+    document.getElementById(h ? 'h-fbs-no' : 'h-fbs-yes').checked = true;
+    document.getElementById(h ? 'h-exang-no' : 'h-exang-yes').checked = true;
+  }
+
+  /* Startup health check */
+  window.addEventListener('DOMContentLoaded', async () => {
+    const bar = document.getElementById('server-status');
+    try {
+      const res = await fetch(API_BASE + '/health', {signal: AbortSignal.timeout(3500)});
+      const data = await res.json();
+      if (data.models_ready) {
+        bar.innerHTML = '<div class="status-dot"></div> AI models loaded and ready. You can run an assessment now.';
+        bar.classList.add('visible', 'ok');
+        setTimeout(() => bar.classList.remove('visible'), 5000);
+      } else {
+        bar.innerHTML = '<div class="status-dot"></div> AI models not loaded. Run: python train_models.py — then restart the server.';
+        bar.classList.add('visible', 'err');
+      }
+    } catch {
+      bar.innerHTML = '<div class="status-dot"></div> Backend server not reachable. Start it with: python app.py';
+      bar.classList.add('visible', 'err');
+    }
+  });
+</script>
+</body>
+</html>

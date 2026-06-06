@@ -1,0 +1,57 @@
+2026-06-06 11:35:32,049 - __main__ - INFO - Starting MedPredict AI application
+2026-06-06 11:35:32,116 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-06-06 11:35:32,117 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-06-06 11:36:24,935 - __main__ - INFO - Starting MedPredict AI application
+2026-06-06 11:36:24,973 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-06-06 11:36:24,974 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-06-06 11:41:29,247 - __main__ - INFO - Starting MedPredict AI application
+2026-06-06 11:41:29,328 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-06-06 11:41:29,330 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-06-06 11:42:18,998 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2026 11:42:18] "GET / HTTP/1.1" 200 -
+2026-06-06 11:42:19,442 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2026 11:42:19] "GET /health HTTP/1.1" 200 -
+2026-06-06 11:42:19,731 - __main__ - WARNING - 404 error: /favicon.ico
+2026-06-06 11:42:19,732 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2026 11:42:19] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-06-06 11:43:54,645 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2026 11:43:54] "[36mGET / HTTP/1.1[0m" 304 -
+2026-06-06 11:43:54,834 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2026 11:43:54] "GET /health HTTP/1.1" 200 -
+2026-06-06 11:55:52,067 - __main__ - INFO - [OK] All models loaded successfully.
+2026-06-06 11:55:52,072 - __main__ - INFO - Starting MedPredict AI application
+2026-06-06 11:55:52,110 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-06-06 11:55:52,111 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-06-06 11:55:58,646 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2026 11:55:58] "GET / HTTP/1.1" 200 -
+2026-06-06 11:55:59,706 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2026 11:55:59] "GET /health HTTP/1.1" 200 -
+2026-06-06 11:56:00,011 - __main__ - WARNING - 404 error: /favicon.ico
+2026-06-06 11:56:00,012 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2026 11:56:00] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-06-06 12:02:48,803 - __main__ - INFO - Heart prediction: 24.5% (Low)
+2026-06-06 12:02:48,804 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2026 12:02:48] "POST /predict/heart HTTP/1.1" 200 -
+2026-06-06 12:21:18,222 - __main__ - INFO - [OK] All models loaded successfully.
+2026-06-06 12:21:18,227 - __main__ - INFO - Starting MedPredict AI application
+2026-06-06 12:21:18,266 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-06-06 12:21:18,267 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-06-06 12:21:25,902 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2026 12:21:25] "[36mGET / HTTP/1.1[0m" 304 -
+2026-06-06 12:21:26,441 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2026 12:21:26] "GET /health HTTP/1.1" 200 -
+2026-06-06 13:26:03,822 - __main__ - INFO - [OK] All models loaded successfully.
+2026-06-06 13:26:03,832 - __main__ - INFO - Starting MedPredict AI application
+2026-06-06 13:26:03,939 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-06-06 13:26:03,940 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-06-06 13:26:39,574 - __main__ - INFO - [OK] All models loaded successfully.
+2026-06-06 13:26:39,580 - __main__ - INFO - Starting MedPredict AI application
+2026-06-06 13:26:39,615 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-06-06 13:26:39,616 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-06-06 13:26:44,923 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2026 13:26:44] "GET / HTTP/1.1" 200 -
+2026-06-06 13:26:45,326 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2026 13:26:45] "GET /health HTTP/1.1" 200 -
+2026-06-06 13:28:54,161 - __main__ - INFO - Heart prediction: 7.4% (Very Low)
+2026-06-06 13:28:54,163 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2026 13:28:54] "POST /predict/heart HTTP/1.1" 200 -
+2026-06-06 13:36:16,411 - __main__ - INFO - [OK] All models loaded successfully.
+2026-06-06 13:36:16,522 - __main__ - INFO - Starting MedPredict AI application
+2026-06-06 13:36:16,854 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-06-06 13:36:16,857 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-06-06 13:36:28,192 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2026 13:36:28] "GET / HTTP/1.1" 200 -
+2026-06-06 13:36:39,703 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2026 13:36:39] "GET /health HTTP/1.1" 200 -
